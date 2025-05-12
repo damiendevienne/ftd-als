@@ -1,7 +1,7 @@
 
 # Age-dependent Carrier Probability of the C9orf72 Repeat Expansion
 
-This repository contains the R code and data accompanying the paper **"Age-dependent carrier probability of the C9orf72 repeat expansion"**. The study proposes a way to compute the probability, for a healthy individual whose parent (or grandparent) carries the C9orf72 repeat expansion, to carry it himself given its age, using data from Murphy et al. (2017). You can access Murphy et al.'s paper [here](https://www.nature.com/articles/s41598-017-00000-0).
+This repository contains the R code and data accompanying the paper **"Age-dependent carrier probability of the C9orf72 repeat expansion"**. The study proposes a way to compute the probability, for a healthy individual whose parent (or grandparent) carries the C9orf72 repeat expansion, to carry it himself given its age, using data from Murphy et al. (2017).
 
 ## Contents
 
@@ -10,11 +10,14 @@ This repository contains the R code and data accompanying the paper **"Age-depen
 
 ## Citation
 
-If you use this code or data, please cite the accompanying paper:
+If you use this code, please cite the accompanying paper:
 
 > "Age-dependent carrier probability of the C9orf72 repeat expansion"  
-> Authors: D. de Vienne & D.M. de Vienne  
-> Published: [Insert publication details here]
+> Authors: D. de Vienne & D.M. de Vienne [TO BE UPDATED] 
+
+## References
+
+Murphy NA, Arthur KC, Tienari PJ, Houlden H, Chiò A, Traynor BJ. Age-related penetrance of the C9orf72 repeat expansion. Sci Rep. 2017;7(1):2116. Published 2017 May 18. doi:10.1038/s41598-017-02364-1
 
 ## License
 
