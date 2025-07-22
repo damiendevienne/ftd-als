@@ -14,4 +14,8 @@ if(!requireNamespace("plotly", quietly = TRUE))
  install.packages("plotly", dependencies = TRUE, repos = "http://cran.univ-lyon1.fr")
 if(!requireNamespace("bslib", quietly = TRUE)) 
  install.packages("bslib", dependencies = TRUE, repos = "http://cran.univ-lyon1.fr")
+if(!requireNamespace("rmarkdown", quietly = TRUE)) 
+ install.packages("rmarkdown", dependencies = TRUE, repos = "http://cran.univ-lyon1.fr")
+if(!requireNamespace("library", quietly = TRUE)) 
+ install.packages("knitr", dependencies = TRUE, repos = "http://cran.univ-lyon1.fr")
 
