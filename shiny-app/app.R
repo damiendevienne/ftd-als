@@ -1,7 +1,7 @@
 require(shiny)
 library(shinyjs) # For writing messages to console
 library(plotly) # For interactive plots
-library(dplyr)
+#library(dplyr)
 library(bslib)
 
 #df_onset <- readRDS("df_onset.rds")
@@ -210,22 +210,23 @@ ui <- fluidPage(
   ),
 
   # Footer
-  tags$footer(
-    style = "
-      background-color: #f0f0f0;
-      padding: 15px 20px;
-      margin-top: 30px;
-      text-align: center;
-      font-size: 90%;
-      color: #555;
-      border-top: 1px solid #ddd;
-    ",
-    HTML(paste0(
-      'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank">GitHub</a> &nbsp;|&nbsp; ',
-      'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> &nbsp;|&nbsp; ',
-      'Contact: <a href="mailto:dominique.de-vienne@inrae.fr">dominique.de-vienne@inrae.fr</a>'
-    ))
-  )
+tags$footer(
+  style = "
+    background-color: #f0f0f0;
+    padding: 15px 20px;
+    margin-top: 30px;
+    text-align: center;
+    font-size: 90%;
+    color: #555;
+    border-top: 1px solid #ddd;
+  ",
+  HTML(paste0(
+    '<img src="logo_lbbe.svg" alt="LBBE logo" height="30" style="vertical-align: middle; margin-right: 10px;"> &nbsp;|&nbsp; ',
+    'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank">GitHub</a> &nbsp;|&nbsp; ',
+    'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> &nbsp;|&nbsp; ',
+    'Contact: <a href="mailto:dominique.de-vienne@inrae.fr">dominique.de-vienne@inrae.fr</a>'
+  ))
+)
 )
 
 
