@@ -95,54 +95,43 @@ pSICKn_grandchild <- function(x, pi_t2,pi_t2_n, pi_t1) { #pi_t2_n is the penetra
 ## USER INTERFACE ##
 ####################
 
+library(shiny)
+library(shinyjs)
+library(bslib)
+
 ui <- fluidPage(
   useShinyjs(),
 
-  # Custom CSS
-  tags$style(HTML("
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      color: #333;
-    }
-    .control-label {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .results-panel {
-      background-color: #f1f1f1;
-      border: 1px solid #ddd;
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 20px;
-    }
-    .result-label {
-      font-weight: bold;
-    }
-    .well {
-      background-color: #ffffff;
-      border: 1px solid #ccc;
-    }
-    .plots-panel {
-      background-color: #f0f0f0; 
-    }
-  ")),
+  # Bootstrap Theme
+  theme = bs_theme(version = 5, bootswatch = "yeti"),  # Change here for different looks
 
-  # Theme
-  theme = bs_theme(version = 5, bootswatch = "flatly"),
+  # Header
+
+  tags$header(
+      class = "bg-primary text-white py-4 mb-4",
+      div(class = "container",
+        tags$h2("Genetic Counseling for ALS/FTD", class = "mb-2"),
+        tags$h4("Carrier Probability Estimation for C9orf72 Repeat Expansion", class = "mb-3"),
+        div(
+          class = "small",
+          HTML(paste0(
+            'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank" class="text-white text-decoration-underline">GitHub</a> &nbsp;|&nbsp; ',
+            'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" class="text-white text-decoration-underline">MIT License</a>'
+          ))
+        )
+      )
+    ),
 
   # Main layout
   fluidRow(
     column(width = 1),  # Left margin
-    
+
     column(width = 10,
       # Title and description
       fluidRow(
         column(12,
-          tags$h2("Genetic Counseling for ALS/FTD", style = "text-align: center; margin-top: 20px;"),
-          tags$h4("Carrier Probability Estimation for C9orf72 Repeat Expansion", style = "text-align: center; margin-bottom: 20px;"),
-          tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and formulae from de Vienne & de Vienne (in prep)."),
-          tags$p("For publication use, please cite:", 
+          tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and methods by de Vienne & de Vienne (in prep)."),
+          tags$p("For publication use, please cite:",
                  tags$i("de Vienne D & de Vienne DM. In prep. Improving Genetic Counseling for C9orf72-ALS/FTD with Age-Based Risk Estimates."))
         )
       ),
@@ -151,7 +140,7 @@ ui <- fluidPage(
       fluidRow(
         column(width = 3,
           wellPanel(
-            tags$h4("Input Parameters", style = "margin-bottom: 15px;"),
+            tags$h4("Input Parameters", class = "mb-3"),
 
             radioButtons("relation", "Family relationship of the consultand to the affected individual:",
                          choices = c("Child" = "child", "Grandchild" = "grandchild")),
@@ -164,7 +153,7 @@ ui <- fluidPage(
               condition = "input.relation == 'grandchild'",
               sliderInput("parent_age", "Age of the parent (child of the affected individual):", value = 70, min = 15, max = 100, step = 1),
               tags$div(
-                style = "font-size: 90%; color: #444;",
+                class = "small text-muted",
                 "Age gap: ",
                 textOutput("age_gap", inline = TRUE),
                 " years"
@@ -179,29 +168,30 @@ ui <- fluidPage(
               step = 1)
           )
         ),
+
         column(width = 9,
-          wellPanel(class= "plots-panel",
-            h4("Results"),
+          wellPanel(
+            tags$h4("Risk estimates visualization"),
+
             fluidRow(
               column(width = 6,
-                h5("Probability of carrying the c9orf72 RE mutation"),
+                tags$h5("Probability of carrying the C9orf72 RE mutation"),
                 plotlyOutput("interactive_plot", height = "500px")
               ),
               column(width = 6,
-                 uiOutput("dynamic_title_nyears"),
-#                h5("Probability of developing the disease in the next N years"),
+                uiOutput("dynamic_title_nyears"),
                 plotlyOutput("interactive_plot2", height = "500px")
               )
             )
           ),
-          wellPanel(class = "results-panel",
-            h4("Risk estimates summary", style = "margin-bottom: 15px;"),
-            p(span(class = "result-label", "Probability to carry the mutation: "),
+
+          wellPanel(
+            tags$h4("Risk estimates summary", class = "mb-3"),
+            tags$p(tags$strong("Probability to carry the mutation: "),
               textOutput("carrier_prob_final", inline = TRUE)),
-            p(span(class = "result-label", "Probability to develop the disease: "),
+            tags$p(tags$strong("Probability to develop the disease: "),
               textOutput("sick_prob_final", inline = TRUE))
           )
-
         )
       )
     ),
@@ -210,24 +200,149 @@ ui <- fluidPage(
   ),
 
   # Footer
-tags$footer(
-  style = "
-    background-color: #f0f0f0;
-    padding: 15px 20px;
-    margin-top: 30px;
-    text-align: center;
-    font-size: 90%;
-    color: #555;
-    border-top: 1px solid #ddd;
-  ",
-  HTML(paste0(
-    '<img src="logo_lbbe.svg" alt="LBBE logo" height="30" style="vertical-align: middle; margin-right: 10px;"> &nbsp;|&nbsp; ',
-    'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank">GitHub</a> &nbsp;|&nbsp; ',
-    'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> &nbsp;|&nbsp; ',
-    'Contact: <a href="mailto:dominique.de-vienne@inrae.fr">dominique.de-vienne@inrae.fr</a>'
-  ))
+  tags$footer(
+    class = "text-center py-3 border-top mt-4",
+    HTML(paste0(
+      '<img src="logo_lbbe.svg" alt="LBBE logo" height="30" style="vertical-align: middle; margin-right: 10px;">',
+      '&nbsp; Contact: <a href="mailto:dominique.de-vienne@inrae.fr">dominique.de-vienne@inrae.fr</a>'
+    ))
+  )
 )
-)
+
+
+# ui <- fluidPage(
+#   useShinyjs(),
+
+#   # Custom CSS
+#   tags$style(HTML("
+#     body {
+#       background-color: #f8f9fa;
+#       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+#       color: #333;
+#     }
+#     .control-label {
+#       font-size: 16px;
+#       font-weight: bold;
+#     }
+#     .results-panel {
+#       background-color: #f1f1f1;
+#       border: 1px solid #ddd;
+#       padding: 15px;
+#       border-radius: 6px;
+#       margin-top: 20px;
+#     }
+#     .result-label {
+#       font-weight: bold;
+#     }
+#     .well {
+#       background-color: #ffffff;
+#       border: 1px solid #ccc;
+#     }
+#     .plots-panel {
+#       background-color: #f0f0f0; 
+#     }
+#   ")),
+
+#   # Theme
+#   theme = bs_theme(version = 5, bootswatch = "darkly"),
+
+#   # Main layout
+#   fluidRow(
+#     column(width = 1),  # Left margin
+    
+#     column(width = 10,
+#       # Title and description
+#       fluidRow(
+#         column(12,
+#           tags$h2("Genetic Counseling for ALS/FTD", style = "text-align: center; margin-top: 20px;"),
+#           tags$h4("Carrier Probability Estimation for C9orf72 Repeat Expansion", style = "text-align: center; margin-bottom: 20px;"),
+#           tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and formulae from de Vienne & de Vienne (in prep)."),
+#           tags$p("For publication use, please cite:", 
+#                  tags$i("de Vienne D & de Vienne DM. In prep. Improving Genetic Counseling for C9orf72-ALS/FTD with Age-Based Risk Estimates."))
+#         )
+#       ),
+
+#       # Inputs and Outputs
+#       fluidRow(
+#         column(width = 3,
+#           wellPanel(
+#             tags$h4("Input Parameters", style = "margin-bottom: 15px;"),
+
+#             radioButtons("relation", "Family relationship of the consultand to the affected individual:",
+#                          choices = c("Child" = "child", "Grandchild" = "grandchild")),
+
+#             numericInput("Penetrance", label = "Assumed disease penetrance:", value = 1, min = 0, max = 1, step = 0.05),
+
+#             sliderInput("age", "Current age of the patient:", value = 40, min = 0, max = 100, step = 1),
+
+#             conditionalPanel(
+#               condition = "input.relation == 'grandchild'",
+#               sliderInput("parent_age", "Age of the parent (child of the affected individual):", value = 70, min = 15, max = 100, step = 1),
+#               tags$div(
+#                 style = "font-size: 90%; color: #444;",
+#                 "Age gap: ",
+#                 textOutput("age_gap", inline = TRUE),
+#                 " years"
+#               )
+#             ), 
+
+#             numericInput("n_years", 
+#               label = "Time frame for disease risk estimation (in years):", 
+#               value = 10, 
+#               min = 1, 
+#               max = 100, 
+#               step = 1)
+#           )
+#         ),
+#         column(width = 9,
+#           wellPanel(class= "plots-panel",
+#             h4("Results"),
+#             fluidRow(
+#               column(width = 6,
+#                 h5("Probability of carrying the c9orf72 RE mutation"),
+#                 plotlyOutput("interactive_plot", height = "500px")
+#               ),
+#               column(width = 6,
+#                  uiOutput("dynamic_title_nyears"),
+# #                h5("Probability of developing the disease in the next N years"),
+#                 plotlyOutput("interactive_plot2", height = "500px")
+#               )
+#             )
+#           ),
+#           wellPanel(class = "results-panel",
+#             h4("Risk estimates summary", style = "margin-bottom: 15px;"),
+#             p(span(class = "result-label", "Probability to carry the mutation: "),
+#               textOutput("carrier_prob_final", inline = TRUE)),
+#             p(span(class = "result-label", "Probability to develop the disease: "),
+#               textOutput("sick_prob_final", inline = TRUE))
+#           )
+
+#         )
+#       )
+#     ),
+
+#     column(width = 1)  # Right margin
+#   ),
+
+#   # Footer
+# tags$footer(
+#   style = "
+#     background-color: #f0f0f0;
+#     padding: 15px 20px;
+#     margin-top: 30px;
+#     text-align: center;
+#     font-size: 90%;
+#     color: #555;
+#     border-top: 1px solid #ddd;
+#   ",
+#   HTML(paste0(
+#     '<img src="logo_lbbe.svg" alt="LBBE logo" height="30" style="vertical-align: middle; margin-right: 10px;"> &nbsp;|&nbsp; ',
+#     'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank">GitHub</a> &nbsp;|&nbsp; ',
+#     'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a> &nbsp;|&nbsp; ',
+#     'Contact: <a href="mailto:dominique.de-vienne@inrae.fr">dominique.de-vienne@inrae.fr</a>'
+#   ))
+# )
+# )
 
 
 
