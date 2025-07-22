@@ -1,1 +1,0 @@
-This tool estimates age-related risks for unaffected child or grandchild of a person with C9orf72-related ALS (amyotrophic lateral sclerosis) or FTD (frontotemporal dementia) of (i) carrying the C9orf72 repeat expansion themselves, and (ii) developing the disease in the coming years.
