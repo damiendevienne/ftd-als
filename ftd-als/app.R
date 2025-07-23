@@ -201,7 +201,7 @@ ui <- fluidPage(
 
         # Inputs and Outputs
         fluidRow(
-          div(class = "col-12 col-xl-4 mb-4",
+          div(class = "col-12 col-xl-3 mb-4",
             wellPanel(
               tags$h4("Input Parameters", class = "mb-3"),
 
@@ -232,7 +232,7 @@ ui <- fluidPage(
             )
           ),
 
-          div(class = "col-12 col-xl-4 mb-4",
+          div(class = "col-12 col-xl-5 mb-4",
             wellPanel(
               tags$h4("Risk estimates visualization"),
               plotlyOutput("combined_plot", height = "500px")
