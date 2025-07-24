@@ -423,6 +423,9 @@ output$download_report <- downloadHandler(
     paste0("genetic_report_", Sys.Date(), ".pdf")
   },
   content = function(file) {
+    tempReport <- file.path(tempdir(), "report-template.Rmd")
+    file.copy("report-template.Rmd", tempReport, overwrite = TRUE)
+    
     params <- list(
       relation = input$relation,
       age = input$age,
@@ -431,17 +434,37 @@ output$download_report <- downloadHandler(
       nyears = input$n_years,
       carrier = get_carrier_prob(),
       risk = get_sick_prob(),
-      date_time = format(Sys.time(), "%Y-%m-%d %H:%M:%S"), 
+      date_time = format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
       thedataframe = adjusted_df()
     )
 
     rmarkdown::render(
-      input = "report-template.Rmd",
+      input = tempReport,
       output_file = file,
       params = params,
       envir = new.env(parent = globalenv())
     )
   }
+  # content = function(file) {
+  #   params <- list(
+  #     relation = input$relation,
+  #     age = input$age,
+  #     parent_age = if (input$relation == "grandchild") input$parent_age else NA,
+  #     penetrance = input$Penetrance,
+  #     nyears = input$n_years,
+  #     carrier = get_carrier_prob(),
+  #     risk = get_sick_prob(),
+  #     date_time = format(Sys.time(), "%Y-%m-%d %H:%M:%S"), 
+  #     thedataframe = adjusted_df()
+  #   )
+
+  #   rmarkdown::render(
+  #     input = "report-template.Rmd",
+  #     output_file = file,
+  #     params = params,
+  #     envir = new.env(parent = globalenv())
+  #   )
+  # }
 )}
 
 shinyApp(ui, server)
