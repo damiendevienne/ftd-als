@@ -5,7 +5,6 @@ library(bslib)
 library(rmarkdown) #for pdf report
 library(knitr) #for pdf report
 
-
 df_onset <- read.csv("df_onset.csv", stringsAsFactors = FALSE)
 ###########################
 ## FUNCTIONS (JULY 2025) ##
@@ -154,6 +153,37 @@ ui <- fluidPage(
         border: 1px solid rgba(0, 0, 0, 0.176);
         padding: 0px 16px 16px 16px;
       } 
+      .loader1 {
+        visibility: hidden; /* Hidden by default */
+      }
+      .loader2 {
+        visibility: visible; /* visible by default (while loading plot at refresh) */
+      }
+      .loader {
+        position: absolute;
+        top: 50%;
+        transform: translate(2px, -50%);
+        width: 24px;
+        height: 24px;
+        border: 4px solid lightgrey;
+        border-bottom-color: grey;
+        border-radius: 50%;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+      }
+
+      @keyframes rotation {
+        0% {
+          transform: translate(10px, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(10px, -50%) rotate(360deg);
+        }
+      }
+
+      .help-block {
+        font-size: 75%;
+      }
 
       footer {
         margin-top: auto;
@@ -239,7 +269,10 @@ ui <- fluidPage(
           div(class = "col-12 col-xl-5 mb-4",
             wellPanel(
               tags$h4("Risk estimates visualization"),
+              #withSpinner(plotlyOutput("combined_plot", height = "500px"), type=8, color="grey", size=0.5),
+              div(class = "loader loader2"),
               plotlyOutput("combined_plot", height = "500px"),
+
               div(style = "text-align: right;",
               helpText("Cick and drop to zoom in, double-click to reset zoom")
               )
@@ -293,8 +326,9 @@ ui <- fluidPage(
                   display: inline-block;",
                 textOutput("sick_prob_final", inline = TRUE)
               )), 
-              div(class="mt-4", style = "text-align: center;",
-                  downloadButton("download_report", "Download report (pdf)")
+              div(class="mt-4", style = "text-align: center; position: relative;",
+                  downloadButton("download_report", "Download report (pdf)"),
+                  span(class="loader loader1")
               )
             ))
           )
@@ -320,6 +354,7 @@ ui <- fluidPage(
 
 # Server
 server <- function(input, output, session) {
+
 
   # Reactive expression to compute parent age
   age_gap <- reactive({
@@ -409,20 +444,28 @@ server <- function(input, output, session) {
   # Server outputs plots using make_combined_plot function
   output$combined_plot <- renderPlotly({
     df <- adjusted_df()   
-    make_combined_plot(
+    pl <- make_combined_plot(
       df = df,
       age_input = input$age,
       carrier_prob = get_carrier_prob(),
       sick_prob = get_sick_prob(),
       nyears = df$n[1]
       )
-  })
+    htmlwidgets::onRender(pl, "
+    function(el, x) {
+      $('.loader2').css('visibility', 'hidden');
+    }
+  ")
+   })
 
 output$download_report <- downloadHandler(
   filename = function() {
     paste0("genetic_report_", Sys.Date(), ".pdf")
   },
   content = function(file) {
+    # Show spinner
+    runjs("$('.loader1').css('visibility', 'visible');")
+
     tempReport <- file.path(tempdir(), "report-template.Rmd")
     file.copy("report-template.Rmd", tempReport, overwrite = TRUE)
     
@@ -444,6 +487,8 @@ output$download_report <- downloadHandler(
       params = params,
       envir = new.env(parent = globalenv())
     )
+    # Hide spinner after a delay to ensure UI updates
+    runjs("$('.loader1').css('visibility', 'hidden');")
   }
   # content = function(file) {
   #   params <- list(
