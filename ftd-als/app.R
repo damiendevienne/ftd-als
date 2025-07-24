@@ -171,7 +171,7 @@ ui <- fluidPage(
   tags$header(
       class = "bg-primary text-white py-4 mb-4",
       div(class = "container",
-        tags$h2("Genetic Counseling for ALS/FTD", class = "mb-2"),
+        tags$h2("Genetic Counselling for ALS/FTD", class = "mb-2"),
         tags$h4("Carrier Probability Estimation for C9orf72 Repeat Expansion", class = "mb-3"),
         div(
           class = "small",
@@ -194,10 +194,15 @@ ui <- fluidPage(
         fluidRow(
           column(12,
             tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and methods by de Vienne & de Vienne (in prep)."),
+            
+            tags$p("The probabilities and risk estimates provided in this report should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counseling."),
             tags$p("For publication use, please cite:",
-                  tags$i("de Vienne D & de Vienne DM. In prep. Improving Genetic Counseling for C9orf72-ALS/FTD with Age-Based Risk Estimates."))
+                  tags$i("de Vienne D & de Vienne DM. In prep. Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72RE variant"))
           )
         ),
+
+
+# autre idée de titre : Improving Genetic Counseling for C9orf72-ALS/FTD with Age-Based Risk Estimates.
 
         # Inputs and Outputs
         fluidRow(
@@ -205,11 +210,10 @@ ui <- fluidPage(
             wellPanel(
               tags$h4("Input Parameters", class = "mb-3"),
 
-              radioButtons("relation", "Family relationship of the consultand to the affected individual:",
+              radioButtons("relation", "Relationship of the consultand to the affected carrier:",
                           choices = c("Child" = "child", "Grandchild" = "grandchild")),
 
-              numericInput("Penetrance", label = "Assumed disease penetrance:", value = 1, min = 0, max = 1, step = 0.05),
-
+              numericInput("Penetrance", label = "Assumed disease penetrance (1 = complete penetrance):", value = 1, min = 0, max = 1, step = 0.05),
               sliderInput("age", "Current age of the patient:", value = 40, min = 0, max = 100, step = 1),
 
               conditionalPanel(
@@ -235,7 +239,10 @@ ui <- fluidPage(
           div(class = "col-12 col-xl-5 mb-4",
             wellPanel(
               tags$h4("Risk estimates visualization"),
-              plotlyOutput("combined_plot", height = "500px")
+              plotlyOutput("combined_plot", height = "500px"),
+              div(style = "text-align: right;",
+              helpText("Cick and drop to zoom in, double-click to reset zoom")
+              )
             )
           ),
 
@@ -262,27 +269,37 @@ ui <- fluidPage(
               tags$hr(),
 
               tags$label(tags$strong("Estimated probability of carrying the mutation:"), 
-                textOutput("carrier_prob_final", inline = TRUE)),
+              span(style = "
+                  color: black;
+                  font-weight: bold;
+                  background-color: #e6f0fa;
+                  border: 1px solid steelblue;
+                  padding: 4px 8px;
+                  border-radius: 4px;
+                  display: inline-block;",
+                textOutput("carrier_prob_final", inline = TRUE)
+              )),
               tags$br(),
               tags$label(tags$strong("Estimated probability of developing the disease in the next ", 
                 textOutput("summary_nyears", inline = TRUE),
                 "years: "),
+              span(style = "
+                  color: black;
+                  font-weight: bold;
+                  background-color: #fceaea;
+                  border: 1px solid firebrick;
+                  padding: 4px 8px;
+                  border-radius: 4px;
+                  display: inline-block;",
                 textOutput("sick_prob_final", inline = TRUE)
-              ), 
+              )), 
               div(class="mt-4", style = "text-align: center;",
                   downloadButton("download_report", "Download report (pdf)")
               )
             ))
-
-
-
-
-
           )
         )
-
       ),
-
       column(width = 2)  # Right margin
     )
   ),  # End of main content. NOTE this div allows for the footer to be at the bottom of the page
