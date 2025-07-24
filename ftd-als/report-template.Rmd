@@ -4,6 +4,9 @@ subtitle: "Report generated on `r params$date_time`"
 output: pdf_document
 header-includes:
   - \pagenumbering{gobble} #remove page numbers
+  - \usepackage{xcolor} #colors
+  - \definecolor{steelblue}{RGB}{70,130,180}
+  - \definecolor{firebrick}{RGB}{178,34,34}
 geometry: margin=1.5cm #margins
 urlcolor: blue #utl colors
 params:
@@ -18,10 +21,10 @@ params:
   thedataframe: NULL
 ---
 
-***Warning**: The probabilities and risk estimates provided in this report are based on current models and available data. They represent statistical estimates and should not be interpreted as definitive predictions. Individual outcomes may vary, and these results do not guarantee the presence or absence of disease. Clinical decisions should be made considering comprehensive medical evaluation and genetic counseling.*
+***Warning**: The probabilities and risk estimates provided in this report are based on currently available data. They represent numerical estimates and should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counseling.*
 
 
-## Consultand information:
+## Consultand information
 
 \- Relationship to affected individual: `r params$relation`
 
@@ -34,17 +37,17 @@ params:
 \- Assumed disease penetrance: `r round(params$penetrance * 100)` \%
 
 
-## Summary of risk estimates:
+## Summary of risk estimates
 
 \noindent\fbox{%
   \parbox{\textwidth}{%
-    - Estimated probability of carrying the c9orf72RE mutation: \textbf{`r round(params$carrier, 3)`}\\
-    - Estimated probability of developing the disease in the next \textbf{`r params$nyears`} years: \textbf{`r round(params$risk, 3)`}
+    - Estimated probability of carrying the c9orf72RE mutation: \textcolor{steelblue}{\textbf{`r round(params$carrier, 3)`}}\\
+    - Estimated probability of developing the disease in the next \textbf{`r params$nyears`} years: \textcolor{firebrick}{\textbf{`r round(params$risk, 3)`}}
   }%
 }
 
 
-## Risk estimates distributions by age:
+## Risk estimates distributions by age
 
 
 ```{r static-plot, echo=FALSE, fig.width=7, fig.height=3.5, fig.align='center', warning=TRUE}
@@ -76,16 +79,7 @@ ggplot(params$thedataframe, aes(x = Age)) +
 
 ```
 
-\noindent
-\centering
-*This report was automatically generated using the online genetic counseling tool available at [www.blablabla](www.rstudio.com). For more details on the computation, please report to the article by de Vienne & de Vienne (in press): Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72$^\text{RE}$ variant. *
 
-
-
-
-
-<p style="text-align: center;">
-
-</p>
+*This report was automatically generated using the online genetic counseling tool available at [www.blablabla](www.rstudio.com). For more details on the computation, please report to the article by de Vienne & de Vienne (in press):* Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72$^\text{RE}$ variant.
 
 
