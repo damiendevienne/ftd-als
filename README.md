@@ -1,19 +1,25 @@
 
-# Age-dependent Carrier Probability of the C9orf72 Repeat Expansion
+# Code and Data for: "Improving Genetic Counselling for C9orf72-mediated ALS/FTD with Age-Based Risk Estimates"
 
-This repository contains the R code and data accompanying the paper **"Age-dependent carrier probability of the C9orf72 repeat expansion"**. The study proposes a way to compute the probability, for a healthy individual whose parent (or grandparent) carries the C9orf72 repeat expansion, to carry it himself given its age, using data from Murphy et al. (2017).
+This repository contains the R code and data accompanying the paper **"Improving Genetic Counselling for C9orf72-mediated ALS/FTD with Age-Based Risk Estimates"** by D.M. de Vienne and D. de Vienne. 
+
+The aim of this study is to provide a quantitative framework for genetic counselling in ALS/FTD families, by estimating carrier probability and disease risks in teh next years for relatives of carriers of the C9orf72-RE mutation, based on age-dependent penetrance; 
+
+An online simulator implementing these calculations is available to genetic consellors online at https://lbbe-shiny.univ-lyon1.fr/ftd-als/.
 
 ## Contents
 
-- **`Age-dep-proba.R`**: R script for data processing, probability computations, and visualization of age-dependent carrier probabilities.
-- **`C9_Data.csv`**: Copy of the dataset from Murphy et al. (2017).
+- `article/` contains data and code related to the article: 
+  - **`Age-dep-proba.R`**: R script for data processing, probability computations, and visualization of age-dependent carrier probabilities.
+  - **`C9_Data.csv`**: Copy of the dataset from Murphy et al. (2017).
+- **`app.R`**, **`report-template.Rmd`**, **`rinstall.txt`**, **`df_onset.csv`** and the `www/` folder concern the online *shiny* application. 
 
 ## Citation
 
 If you use this code, please cite the accompanying paper:
 
-> "Age-dependent carrier probability of the C9orf72 repeat expansion"  
-> Authors: D. de Vienne & D.M. de Vienne [TO BE UPDATED] 
+> D.M. de Vienne & D. de Vienne. 2025. Improving Genetic Counselling for C9orf72-mediated ALS/FTD with Age-Based Risk Estimates. *MedrXiv*
+>  
 
 ## References
 
