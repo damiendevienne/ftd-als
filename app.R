@@ -225,14 +225,14 @@ ui <- fluidPage(
           column(12,
             tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and methods by de Vienne & de Vienne (in prep)."),
             
-            tags$p("The probabilities and risk estimates provided in this report should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counseling."),
+            tags$p("The probabilities and risk estimates provided in this report should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counselling."),
             tags$p("For publication use, please cite:",
                   tags$i("de Vienne D & de Vienne DM. In prep. Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72RE variant"))
           )
         ),
 
 
-# autre idée de titre : Improving Genetic Counseling for C9orf72-ALS/FTD with Age-Based Risk Estimates.
+# autre idée de titre : Improving Genetic Counselling for C9orf72-ALS/FTD with Age-Based Risk Estimates.
 
         # Inputs and Outputs
         fluidRow(

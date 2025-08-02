@@ -1,5 +1,5 @@
 ---
-title: "Genetic Counseling Report for c9orf72RE ALS-FTD"
+title: "Genetic Counselling Report for c9orf72RE ALS-FTD"
 subtitle: "Report generated on `r params$date_time`"
 output: pdf_document
 header-includes:
@@ -21,7 +21,7 @@ params:
   thedataframe: NULL
 ---
 
-***Warning**: The probabilities and risk estimates provided in this report are based on currently available data. They represent numerical estimates and should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counseling.*
+***Warning**: The probabilities and risk estimates provided in this report are based on currently available data. They represent numerical estimates and should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counselling.*
 
 
 ## Consultand information
@@ -80,6 +80,6 @@ ggplot(params$thedataframe, aes(x = Age)) +
 ```
 
 
-*This report was automatically generated using the online genetic counseling tool available at [www.blablabla](www.rstudio.com). For more details on the computation, please report to the article by de Vienne & de Vienne (in press):* Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72$^\text{RE}$ variant.
+*This report was automatically generated using the online genetic counselling tool available at [https://lbbe-shiny.univ-lyon1.fr/ftd-als/](https://lbbe-shiny.univ-lyon1.fr/ftd-als/). For more details on the computation, please report to the article by de Vienne & de Vienne (in press):* Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72$^\text{RE}$ variant.
 
 
