@@ -158,22 +158,6 @@ getpSICK_grandchild <- function(df, xvals=seq(0, 1, by = 0.2), n, delta) {
   df_onset_expanded
 }
 
-# getpMX <- function(df, xvals=seq(0, 1, by = 0.2), n) {
-#   # delta is the age difference between grandchild and its parent (child of the carrier)
-#   # n is the number of years in the future to compute the probability of getting sick for the grandchild
-#   penetrance_n <- c(df$Penetrance[(n+1):length(df$Penetrance)],rep(1, n))
-#   penetrances <- cbind(df$Penetrance, penetrance_n) # Create a matrix with two columns: Penetrance at age t and Penetrance at age t+n
-#   # Initialize empty data frame
-#   df_onset_expanded <- data.frame()
-#   for (x in xvals) {
-#       temp <- data.frame(Age = df$Age, x = x, n=n,
-#       pMX = apply(penetrances, 1, function(k,x) pMX(x, k[1], k[2]), x = x))
-#       df_onset_expanded <- rbind(df_onset_expanded, temp)
-#   }
-#   df_onset_expanded
-# }
-
-
 #####################
 ## PLOT THE DATA ####
 #####################
@@ -305,4 +289,5 @@ row2 <- PrepareFigure3(20, tags=c("C","D"))
 pdf("fig3.pdf", width=12, height = 12)
 ((row1$p1 | row1$p2)/(row2$p1 | row2$p2)) + plot_layout(guides = "collect") & theme(legend.position = "right")
 dev.off()
+
 
