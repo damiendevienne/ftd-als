@@ -1,6 +1,4 @@
 ---
-title: "Genetic Counselling Report for c9orf72RE ALS-FTD"
-subtitle: "Report generated on `r params$date_time`"
 output: pdf_document
 header-includes:
   - \pagenumbering{gobble} #remove page numbers
@@ -21,7 +19,14 @@ params:
   thedataframe: NULL
 ---
 
-***Warning**: The probabilities and risk estimates provided in this report are based on currently available data. They represent numerical estimates and should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counselling.*
+\begin{center}
+{\LARGE \textbf{Genetic Counselling Report for \textit{C9orf72}\textsuperscript{RE}-related ALS-FTD}}\\[1em]
+\textit{Report generated on `r params$date_time`}
+\end{center}
+
+\vspace{1.5em}
+
+***Warning**: The risk estimates in this report are not definitive predictions. They reflect current knowlegde on age-related penetrance and may be updated as new data become available.*
 
 
 ## Consultand information
