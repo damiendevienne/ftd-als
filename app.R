@@ -202,13 +202,13 @@ ui <- fluidPage(
       class = "bg-primary text-white py-4 mb-4",
       div(class = "container",
         tags$h2("Genetic Counselling for ALS/FTD", class = "mb-2"),
-        tags$h4("Carrier Probability Estimation for C9orf72 Repeat Expansion", class = "mb-3"),
+        tags$h4(HTML("Probability Estimates for <i>C9orf72</i><sup>RE</sup>-related ALS/FTD diseases"), class = "mb-3"),
         div(
           class = "small",
           HTML(paste0(
             'Source code on <a href="https://github.com/damiendevienne/ftd-als" target="_blank" class="text-white text-decoration-underline">GitHub</a> &nbsp;|&nbsp; ',
             'Licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" class="text-white text-decoration-underline">MIT License</a> &nbsp;|&nbsp; ',
-            'Contact <a href="mailto:dominique.de-vienne@inrae.fr" target="_blank" class="text-white text-decoration-underline">Dominique de Vienne</a>'
+            'Contact <a href="mailto:dominique.de-vienne@universite-paris-saclay.fr" target="_blank" class="text-white text-decoration-underline">Dominique de Vienne</a>'
           ))
         )
       )
@@ -223,11 +223,8 @@ ui <- fluidPage(
         # Title and description
         fluidRow(
           column(12,
-            tags$p("This application estimates the probability of carrying the C9orf72 repeat expansion mutation for an unaffected first- or second-degree relative of an affected individual. Estimates are based on age-specific penetrance data (Murphy et al., 2017) and methods by de Vienne & de Vienne (in prep)."),
-            
-            tags$p("The probabilities and risk estimates provided in this report should not be interpreted as definitive predictions. Clinical decisions should be made considering comprehensive medical evaluation and genetic counselling."),
-            tags$p("For publication use, please cite:",
-                  tags$i("de Vienne D & de Vienne DM. In prep. Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72RE variant"))
+            tags$p(HTML("This application estimates the probability of carrying the <i>C9orf72</i><sup>RE</sup> mutation for unaffected relatives of a carrier. Estimates are based on the mathematical developments from de Vienne & de Vienne (in prep), applied to the age-specific penetrance data from Murphy <i>et al.</i> (2017). The risk estimates in this report are not definitive predictions. They reflect current knowlegde on age-related penetrance and may be updated as new data become available.")),
+            tags$p(HTML("For publication use, please cite: <i>de Vienne D & de Vienne DM. In prep. Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72RE variant</i>"))
           )
         ),
 
@@ -241,14 +238,14 @@ ui <- fluidPage(
               tags$h4("Input Parameters", class = "mb-3"),
 
               radioButtons("relation", "Relationship of the consultand to the affected carrier:",
-                          choices = c("Child" = "child", "Grandchild" = "grandchild")),
+                          choices = c("Child (or sibling)" = "child", "Grandchild (or nibling)" = "grandchild")),
 
               numericInput("Penetrance", label = "Assumed disease penetrance (1 = complete penetrance):", value = 1, min = 0, max = 1, step = 0.05),
-              sliderInput("age", "Current age of the patient:", value = 40, min = 0, max = 100, step = 1),
+              sliderInput("age", "Current age of the consultand:", value = 40, min = 0, max = 100, step = 1),
 
               conditionalPanel(
                 condition = "input.relation == 'grandchild'",
-                sliderInput("parent_age", "Age of the parent (child of the affected individual):", value = 70, min = 15, max = 100, step = 1),
+                sliderInput("parent_age", "Age of the parent (child - or sibling - of the affected individual):", value = 70, min = 15, max = 100, step = 1),
                 tags$div(
                   class = "small text-muted",
                   "Age gap: ",
@@ -315,7 +312,7 @@ ui <- fluidPage(
               tags$br(),
               tags$label(tags$strong("Estimated probability of developing the disease in the next ", 
                 textOutput("summary_nyears", inline = TRUE),
-                "years: "),
+                ": "),
               span(style = "
                   color: black;
                   font-weight: bold;
@@ -373,7 +370,7 @@ server <- function(input, output, session) {
 
   #new outputs for summary
   output$summary_relation <- renderText({
-    if (input$relation == "child") "Child" else "Grandchild"
+    if (input$relation == "child") "Child (or sibling)" else "Grandchild (or nibling)"
   })
 
   output$summary_age <- renderText({
@@ -470,7 +467,7 @@ output$download_report <- downloadHandler(
     file.copy("report-template.Rmd", tempReport, overwrite = TRUE)
     
     params <- list(
-      relation = input$relation,
+      relation = if (input$relation == "grandchild") "Grandchild (or nibling)" else "Child (or sibling)",
       age = input$age,
       parent_age = if (input$relation == "grandchild") input$parent_age else NA,
       penetrance = input$Penetrance,
