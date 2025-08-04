@@ -1,6 +1,10 @@
 ## D de Vienne & DM de Vienne
 ## May 6th, 20025
+## Code accompanying the article: Age-Based Risk Estimates for C9orf72RE-related Diseases: 
+## Theoretical Developments and Added Value for Genetic Counselling.
+
 require(ggplot2)
+require(patchwork)
 
 ##################
 ## FORMAT DATA ###
@@ -161,8 +165,6 @@ getpSICK_grandchild <- function(df, xvals=seq(0, 1, by = 0.2), n, delta) {
 #####################
 ## PLOT THE DATA ####
 #####################
-require(ggplot2)
-library(patchwork)
 
 ####  FIGURE 1  #####
 ## 1A: number of cases per age

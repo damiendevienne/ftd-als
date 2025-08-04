@@ -85,6 +85,4 @@ ggplot(params$thedataframe, aes(x = Age)) +
 ```
 
 
-*This report was automatically generated using the online genetic counselling tool available at [https://lbbe-shiny.univ-lyon1.fr/ftd-als/](https://lbbe-shiny.univ-lyon1.fr/ftd-als/). For more details on the computation, please report to the article by de Vienne & de Vienne (in press):* Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72$^\text{RE}$ variant.
-
-
+*This report was automatically generated using the online genetic counselling tool available at [https://lbbe-shiny.univ-lyon1.fr/ftd-als/](https://lbbe-shiny.univ-lyon1.fr/ftd-als/). For more details on the computation, please report to the article by de Vienne & de Vienne (in press):* Age-Based Risk Estimates for \textit{C9orf72}$^\text{RE}$-related Diseases: Theoretical Developments and Added Value for Genetic Counselling.

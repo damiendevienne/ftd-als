@@ -224,7 +224,7 @@ ui <- fluidPage(
         fluidRow(
           column(12,
             tags$p(HTML("This application estimates the probability of carrying the <i>C9orf72</i><sup>RE</sup> mutation for unaffected relatives of a carrier. Estimates are based on the mathematical developments from de Vienne & de Vienne (in prep), applied to the age-specific penetrance data from Murphy <i>et al.</i> (2017). The risk estimates in this report are not definitive predictions. They reflect current knowlegde on age-related penetrance and may be updated as new data become available.")),
-            tags$p(HTML("For publication use, please cite: <i>de Vienne D & de Vienne DM. In prep. Risk assessment for relatives of carriers of autosomal dominant mutations: theoretical synthesis and application to the C9orf72RE variant</i>"))
+            tags$p(HTML("For publication use, please cite: <i>de Vienne & de Vienne. 2025. Age-Based Risk Estimates for </i>C9orf72<i><sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling. medRxiv</i>"))
           )
         ),
 
