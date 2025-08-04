@@ -63,23 +63,25 @@ library(ggplot2)
 ggplot(params$thedataframe, aes(x = Age)) +
   geom_line(aes(y = PvariantWhenHealthy, color = "Carrier probability"), linewidth = 1) +
   geom_line(aes(y = PsickInFuture, color = paste0("Disease risk (next ", params$nyears, " years)")), linewidth = 1) +
-  geom_vline(xintercept = params$age, linetype = "dotted", color = "gray40", linewidth=0.6) +
-  geom_hline(yintercept = params$carrier, linetype = "dotted", color = "steelblue", linewidth=0.6) +
-  geom_hline(yintercept = params$risk, linetype = "dotted", color = "firebrick", linewidth=0.6) + 
+  annotate("segment", x = 0, xend = params$age, y = params$carrier, yend = params$carrier,
+           linetype = "dotted", color = "steelblue", linewidth = 0.6) +
+  annotate("segment", x = 0, xend = params$age, y = params$risk, yend = params$risk,
+           linetype = "dotted", color = "firebrick", linewidth = 0.6) +
+  annotate("segment", x = params$age, xend = params$age, y = 0, yend = max(params$carrier, params$risk),
+           linetype = "dotted", color = "gray40", linewidth = 0.6) +
   scale_x_continuous(breaks = seq(0, 100, 10), limits = c(0, 100)) +
-  scale_color_manual(values=c("steelblue","firebrick")) +
+  scale_color_manual(values = c("steelblue", "firebrick")) +
   theme_light() +
   theme(
     panel.border = element_blank(),
     legend.position = "inside",
-    legend.position.inside = c(0.95, 0.95),  # use this instead of legend.position
+    legend.position.inside = c(0.95, 0.95),
     legend.justification = c("right", "top"),
     legend.margin = margin(2, 2, 2, 2),
     legend.title = element_blank()
   ) +
   ylab("Probability") + 
   xlab("Age of the consultand")
-
 
 
 ```

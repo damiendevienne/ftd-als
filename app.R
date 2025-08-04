@@ -48,81 +48,41 @@ pSICKn_grandchild <- function(x, pi_t2,pi_t2_n, pi_t1) { #pi_t2_n is the penetra
   result
 }
 
-# # Ploting function
-  make_plot <- function(df, age_input, prob_line, y_col, line_color, plot_title) {
-    plot_ly(data = df, x = ~Age, y = as.formula(paste0("~", y_col)), type = 'scatter', mode = 'lines',
-            line = list(color = line_color),
-            hoverinfo = 'x+y',
-            name = plot_title) %>%
-      layout(
-#        title = list(text = plot_title, font=list(size=16)),
-        margin = list(l = 60, r = 10, t = 10, b = 60),
-        xaxis = list(title = "Age of the consultand"),
-        yaxis = list(title = "Estimated probability"),
-        # plot_bgcolor = "rgba(0,0,0,0)",   # transparent plot area
-        # paper_bgcolor = "rgba(0,0,0,0)",  # transparent outer area
-        shapes = list(
-          list(
-            type = "line",
-            x0 = age_input, x1 = age_input,
-            y0 = 0, y1 = 1,
-            line = list(dash = "dot", color = line_color)
-          ),
-          list(
-            type = "line",
-            x0 = 0, x1 = 100,
-            y0 = prob_line, y1 = prob_line,
-            line = list(dash = "dot", color = line_color)
-          )
-        ),
-        legend = list(
-          x = 1,
-          y = 1,
-          xanchor = "right",
-          yanchor = "top",
-          bgcolor = "rgba(255,255,255,0.5)",
-          bordercolor = "gray",
-          borderwidth = 1
-        )
-      ) %>%
-      config(
-        displayModeBar = FALSE,
-        editable = FALSE
-      )
-  }
 
-  make_combined_plot <- function(df, age_input, carrier_prob, sick_prob, nyears) {
-    plot_ly(data = df, type = 'scatter', mode = 'lines') %>%
-      add_trace(x = ~Age, y = ~PvariantWhenHealthy,
-                name = "Carrier probability",
-                line = list(color = "steelblue")) %>%
-      add_trace(x = ~Age, y = ~PsickInFuture,
-                name = paste("Disease risk (next",nyears, " years)"),
-                line = list(color = "firebrick")) %>%
-      layout(
-        margin = list(l = 60, r = 10, t = 10, b = 60),
-        xaxis = list(title = "Age of the consultand"),
-        yaxis = list(title = "Estimated probability"),
-        shapes = list(
-          list(type = "line", x0 = age_input, x1 = age_input, y0 = 0, y1 = 1,
-              line = list(dash = "dot", color = "gray")),
-          list(type = "line", x0 = 0, x1 = 100, y0 = carrier_prob, y1 = carrier_prob,
-              line = list(dash = "dot", color = "steelblue")),
-          list(type = "line", x0 = 0, x1 = 100, y0 = sick_prob, y1 = sick_prob,
-              line = list(dash = "dot", color = "firebrick"))
-        ),
-        legend = list(
-          x = 1,
-          y = 1,
-          xanchor = "right",
-          yanchor = "top",
-          bgcolor = "rgba(255,255,255,0.5)",
-          bordercolor = "gray",
-          borderwidth = 1
-        )
-      ) %>%
-      config(displayModeBar = FALSE, editable = FALSE)
-  }
+make_combined_plot <- function(df, age_input, carrier_prob, sick_prob, nyears) {
+  ymax <- max(carrier_prob, sick_prob)
+  
+  plot_ly(data = df, type = 'scatter', mode = 'lines') %>%
+    add_trace(x = ~Age, y = ~PvariantWhenHealthy,
+              name = "Carrier probability",
+              line = list(color = "steelblue")) %>%
+    add_trace(x = ~Age, y = ~PsickInFuture,
+              name = paste("Disease risk (next", nyears, "years)"),
+              line = list(color = "firebrick")) %>%
+    layout(
+      margin = list(l = 60, r = 10, t = 10, b = 60),
+      xaxis = list(title = "Age of the consultand"),
+      yaxis = list(title = "Estimated probability", range = c(0, 1)),
+      shapes = list(
+        list(type = "line", x0 = age_input, x1 = age_input, y0 = 0, y1 = ymax,
+             line = list(dash = "dot", color = "gray")),
+        list(type = "line", x0 = 0, x1 = age_input, y0 = carrier_prob, y1 = carrier_prob,
+             line = list(dash = "dot", color = "steelblue")),
+        list(type = "line", x0 = 0, x1 = age_input, y0 = sick_prob, y1 = sick_prob,
+             line = list(dash = "dot", color = "firebrick"))
+      ),
+      legend = list(
+        x = 1,
+        y = 1,
+        xanchor = "right",
+        yanchor = "top",
+        bgcolor = "rgba(255,255,255,0.5)",
+        bordercolor = "gray",
+        borderwidth = 1
+      )
+    ) %>%
+    config(displayModeBar = FALSE, editable = FALSE)
+}
 
 
 ####################
