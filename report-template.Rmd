@@ -39,7 +39,7 @@ params:
   paste0("\n\\- Age of its parent (child of the carrier): ", params$parent_age, " years")
 }`
 
-\- Assumed disease penetrance: `r round(params$penetrance * 100)` \%
+\- Assumed proportion of non-penetrant carriers: `r params$penetrance`
 
 
 ## Summary of risk estimates

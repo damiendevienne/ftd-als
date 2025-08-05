@@ -200,7 +200,7 @@ ui <- fluidPage(
               radioButtons("relation", "Relationship of the consultand to the affected carrier:",
                           choices = c("Child (or sibling)" = "child", "Grandchild (or nibling)" = "grandchild")),
 
-              numericInput("Penetrance", label = "Assumed disease penetrance (1 = complete penetrance):", value = 1, min = 0, max = 1, step = 0.05),
+              numericInput("Penetrance", label = "Assumed proportion of non-penetrant carriers:", value = 0, min = 0, max = 1, step = 0.05),
               sliderInput("age", "Current age of the consultand:", value = 40, min = 0, max = 100, step = 1),
 
               conditionalPanel(
@@ -245,7 +245,7 @@ ui <- fluidPage(
               tags$br(),
               tags$label("Current age of the consultand:", textOutput("summary_age", inline = TRUE)),
               tags$br(),
-              tags$label("Assumed disease penetrance:", textOutput("summary_penetrance", inline = TRUE)),
+              tags$label("Assumed proportion of non-penetrant carriers:", textOutput("summary_penetrance", inline = TRUE)),
 
               conditionalPanel(
                 condition = "input.relation == 'grandchild'",
@@ -338,7 +338,7 @@ server <- function(input, output, session) {
   })
 
   output$summary_penetrance <- renderText({
-    paste0(round(input$Penetrance * 100), "%")
+    paste0(input$Penetrance)
   })
 
   output$summary_parent_age <- renderText({
@@ -354,7 +354,7 @@ server <- function(input, output, session) {
   })
 
   adjusted_df <- reactive({ #this dataframe is updated when variables (n, x, relation) change
-    x <- 1-input$Penetrance #proportion of non-penetrant carriers in the population
+    x <- input$Penetrance #proportion of non-penetrant carriers in the population
     n <- input$n_years #time frame for disease risk estimation
     penetrance_n <- c(df_onset$Penetrance[(n+1):length(df_onset$Penetrance)],rep(1, n)) #penetrance at age t+n
     # df <- df_onset
