@@ -1,9 +1,9 @@
 
-# Code and Data for: "Age-Based Risk Estimates for \textit{C9orf72}$^\text{RE}$-related Diseases: Theoretical Developments and Added Value for Genetic Counselling"
+# Code and Data for: "Age-Based Risk Estimates for *C9orf72*<sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling"
 
-This repository contains the R code and data accompanying the paper **"Age-Based Risk Estimates for \textit{C9orf72}$^\text{RE}$-related Diseases: Theoretical Developments and Added Value for Genetic Counselling"** by D.M. de Vienne and D. de Vienne. 
+This repository contains the R code and data accompanying the paper **"Age-Based Risk Estimates for *C9orf72*<sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling"** by D.M. de Vienne and D. de Vienne. 
 
-The aim of this study is to provide a quantitative framework for genetic counselling in ALS/FTD families, by estimating carrier probability and disease risks in the next years for relatives of carriers of the \textit{C9orf72}$^\text{RE}$ mutation, based on age-dependent penetrance; 
+The aim of this study is to provide a quantitative framework for genetic counselling in ALS/FTD families, by estimating carrier probability and disease risks in the next years for relatives of carriers of the *C9orf72*<sup>RE</sup> mutation, based on age-dependent penetrance; 
 
 An online simulator implementing these calculations is available to genetic consellors online at https://lbbe-shiny.univ-lyon1.fr/ftd-als/.
 
