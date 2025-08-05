@@ -18,7 +18,7 @@ An online simulator implementing these calculations is available to genetic cons
 
 If you use this code, please cite the accompanying paper:
 
-> D.M. de Vienne & D. de Vienne. 2025. Improving Genetic Counselling for C9orf72-mediated ALS/FTD with Age-Based Risk Estimates. *MedrXiv*
+> D.M. de Vienne & D. de Vienne. 2025. Age-Based Risk Estimates for *C9orf72*<sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling. *MedrXiv*
 >  
 
 ## References
