@@ -93,64 +93,86 @@ ui <- fluidPage(
 
   useShinyjs(),
 
-  tags$head(
-    tags$style(HTML("
-      html, body {
-        height: 100%;
-        margin: 0;
-      }
+tags$head(
 
-      .container-fluid {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
+  tags$style(HTML("
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
 
-      .main-content {
-        flex: 1;
-      }
-      .summary {
-        border: 1px solid rgba(0, 0, 0, 0.176);
-        padding: 0px 16px 16px 16px;
-      } 
-      .loader1 {
-        visibility: hidden; /* Hidden by default */
-      }
-      .loader2 {
-        visibility: visible; /* visible by default (while loading plot at refresh) */
-      }
-      .loader {
-        position: absolute;
-        top: 50%;
-        transform: translate(2px, -50%);
-        width: 24px;
-        height: 24px;
-        border: 4px solid lightgrey;
-        border-bottom-color: grey;
-        border-radius: 50%;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-      }
+    .container-fluid {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-      @keyframes rotation {
-        0% {
-          transform: translate(10px, -50%) rotate(0deg);
-        }
-        100% {
-          transform: translate(10px, -50%) rotate(360deg);
-        }
-      }
+    .main-content {
+      flex: 1;
+    }
 
-      .help-block {
-        font-size: 75%;
-      }
+    .summary {
+      border: 1px solid rgba(0, 0, 0, 0.176);
+      padding: 0px 16px 16px 16px;
+    } 
 
-      footer {
-        margin-top: auto;
-      }
+    .loader1 {
+      visibility: hidden;
+    }
 
-    "))
-  ),
+    .loader2 {
+      visibility: visible;
+    }
+
+    .loader {
+      position: absolute;
+      top: 50%;
+      transform: translate(2px, -50%);
+      width: 24px;
+      height: 24px;
+      border: 4px solid lightgrey;
+      border-bottom-color: grey;
+      border-radius: 50%;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: translate(10px, -50%) rotate(0deg);
+      }
+      100% {
+        transform: translate(10px, -50%) rotate(360deg);
+      }
+    }
+
+    .help-block {
+      font-size: 75%;
+    }
+
+    footer {
+      margin-top: auto;
+    }
+  ")),
+
+  HTML('
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function() {
+    var u="//lbbe-analytics.univ-lyon1.fr/";
+    _paq.push(["setTrackerUrl", u+"matomo.php"]);
+    _paq.push(["setSiteId", "8"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.async=true; g.src=u+"matomo.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+')
+)
+,
 
   # Bootstrap Theme
   theme = bs_theme(version = 5, bootswatch = "yeti"),  # Change here for different looks
