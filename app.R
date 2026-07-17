@@ -206,7 +206,7 @@ tags$head(
         fluidRow(
           column(12,
             tags$p(HTML("This application estimates the probability of carrying the <i>C9orf72</i><sup>RE</sup> mutation for unaffected relatives of a carrier. Estimates are based on the mathematical developments from de Vienne & de Vienne (in prep), applied to the age-specific penetrance data from Murphy <i>et al.</i> (2017). The risk estimates in this report are not definitive predictions. They reflect current knowlegde on age-related penetrance and may be updated as new data become available.")),
-            tags$p(HTML("For publication use, please cite: <i>de Vienne & de Vienne. 2026. Age-Based Risk Estimates for </i>C9orf72<i><sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling.</i> PLOS Genetics. <a href='https://doi.org/10.1371/journal.pgen.1011234' target='_blank'>https://doi.org/10.1371/journal.pgen.1011234</a>"))
+            tags$p(HTML("For publication use, please cite: <i>de Vienne & de Vienne. 2026. Age-Based Risk Estimates for </i>C9orf72<i><sup>RE</sup>-related Diseases: Theoretical Developments and Added Value for Genetic Counselling.</i> PLOS Genetics. <a href='https://doi.org/10.1371/journal.pgen.1012230' target='_blank'>https://doi.org/10.1371/journal.pgen.1012230</a>"))
           )
         ),
 
